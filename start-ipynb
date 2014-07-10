@@ -1,0 +1,6 @@
+#!/bin/bash
+
+chown ipynb /notebooks
+chmod 0700  /notebooks
+exec su ipynb --session-command="/usr/bin/ipython notebook $*"
+
