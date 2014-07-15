@@ -24,6 +24,8 @@ RUN pip install pandas
 RUN pip install pattern
 RUN yum -y install libyaml-devel
 RUN pip install nltk
+RUN python -m nltk.downloader -d /usr/lib/nltk_data all
+RUN find /usr/lib/nltk_data -iname *.zip -exec rm {} \;
 
 # remove unused RPMs
 RUN rpm -qa | grep -- -devel | grep -v python | xargs yum -y remove
