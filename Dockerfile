@@ -20,18 +20,6 @@ RUN pip install matplotlib
 
 RUN pip install pandas
 
-# NLP
-RUN pip install pattern
-RUN yum -y install libyaml-devel
-RUN pip install nltk
-RUN python -m nltk.downloader -d /usr/lib/nltk_data all
-RUN find /usr/lib/nltk_data -iname *.zip -exec rm {} \;
-
-# remove unused RPMs
-RUN rpm -qa | grep -- -devel | grep -v python | xargs yum -y remove
-RUN rpm -qa | grep -- -headers | xargs yum -y remove
-RUN yum clean all
-RUN rm -rf /tmp/*
 # for notebook exporting
 RUN pip install pygments
 RUN yum -y install pandoc
@@ -45,13 +33,18 @@ RUN ipython profile create
 
 # install MathJax locally
 RUN python -c "from IPython.external.mathjax import install_mathjax; install_mathjax()"
+USER root
 
 ADD start-ipynb /usr/bin/
 
-VOLUME  /notebooks
-WORKDIR /notebooks
+ONBUILD VOLUME  /notebooks
+ONBUILD WORKDIR /notebooks
 
-USER root
-EXPOSE 8888
-ENTRYPOINT ["/usr/bin/start-ipynb", "--no-browser", "--ip=0.0.0.0", "--port=8888"]
+# remove unused RPMs
+ONBUILD RUN rpm -qa | grep -E -- "-(headers|devel)" | grep -v python | xargs yum -y remove
+ONBUILD RUN yum clean all
+ONBUILD RUN rm -rf /tmp/*
+
+ONBUILD EXPOSE 8888
+ONBUILD ENTRYPOINT ["/usr/bin/start-ipynb", "--no-browser", "--ip=0.0.0.0", "--port=8888"]
 
