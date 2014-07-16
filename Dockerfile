@@ -7,33 +7,20 @@ MAINTAINER Darell Tan <darell.tan@gmail.com>
 
 RUN rpm -Uvh http://download.fedoraproject.org/pub/epel/beta/7/x86_64/epel-release-7-0.2.noarch.rpm
 
-RUN yum -y install python-pip numpy scipy
-RUN yum -y install gcc-c++
+RUN yum -y install python-{pip,zmq,jinja2} numpy scipy pandoc
+RUN yum -y install gcc-c++ freetype-devel libpng-devel atlas-devel blas-devel
+RUN for p in "tornado<4.0" ipython matplotlib pygments; do pip install "$p"; done
 RUN pip install scikit-learn
-
-RUN yum -y install python-{zmq,jinja2}
-RUN pip install "tornado < 4.0"
-RUN pip install ipython
-
-RUN yum -y install freetype-devel libpng-devel
-RUN pip install matplotlib
-
 RUN pip install pandas
-
-# for notebook exporting
-RUN pip install pygments
-RUN yum -y install pandoc
 
 ENV IPYTHONDIR /ipython
 RUN useradd -m ipynb
 RUN mkdir -m 0700 /ipython && chown ipynb /ipython
 
-USER ipynb
-RUN ipython profile create
+RUN su ipynb -c "ipython profile create"
 
 # install MathJax locally
-RUN python -c "from IPython.external.mathjax import install_mathjax; install_mathjax()"
-USER root
+RUN su ipynb -c "python -c 'from IPython.external.mathjax import install_mathjax; install_mathjax()'"
 
 ADD start-ipynb /usr/bin/
 
