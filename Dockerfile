@@ -12,7 +12,7 @@ RUN yum -y install gcc-c++
 RUN pip install scikit-learn
 
 RUN yum -y install python-{zmq,jinja2}
-RUN pip install tornado
+RUN pip install "tornado < 4.0"
 RUN pip install ipython
 
 RUN yum -y install freetype-devel libpng-devel
