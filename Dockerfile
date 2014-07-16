@@ -32,6 +32,9 @@ RUN rpm -qa | grep -- -devel | grep -v python | xargs yum -y remove
 RUN rpm -qa | grep -- -headers | xargs yum -y remove
 RUN yum clean all
 RUN rm -rf /tmp/*
+# for notebook exporting
+RUN pip install pygments
+RUN yum -y install pandoc
 
 ENV IPYTHONDIR /ipython
 RUN useradd -m ipynb
