@@ -48,3 +48,5 @@ ONBUILD RUN rm -rf /tmp/*
 ONBUILD EXPOSE 8888
 ONBUILD ENTRYPOINT ["/usr/bin/start-ipynb", "--no-browser", "--ip=0.0.0.0", "--port=8888"]
 
+RUN rm -rf /tmp/*
+
