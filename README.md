@@ -1,8 +1,9 @@
 CentOS-based IPython Notebook
 ===============================
 **centos-ipynb** is a CentOS-based docker image that hosts an IPython Notebook
-instance. This *base* image forms the base of an IPython install, which can be
-built on to provide more functionality & bundled modules, such as for NLP.
+instance. The root directory forms the base of an IPython install, which can be
+built on to provide more functionality & bundled modules, such as for NLP. The 
+usable images are in the `img-base` and `img-nlp` directories.
 
 The instance comes with the following Python modules pre-installed:
 
@@ -17,18 +18,18 @@ Only included with the `-nlp` image (due to its additional data size):
 
 Your notebooks can be persisted by mounting the `/notebooks` volume:
 
-    docker run -v /host/notebooks-dir:/notebooks centos-ipynb
+    docker run -v /host/notebooks-dir:/notebooks zxgm/centos-ipynb
 
 The internal HTTP port is 8888, which is the default. You can expose the port
 using the `-p` option:
 
-    docker run -p 8000:8888 centos-ipynb
+    docker run -p 8000:8888 zxgm/centos-ipynb
 
 You can of course combine both `-p` and `-v` options.
 
 You can pass additional options directly to `docker run` to the `ipython` executable, for example:
 
-    docker run centos-ipynb --help
+    docker run zxgm/centos-ipynb --help
 
 
 Shutting Down
