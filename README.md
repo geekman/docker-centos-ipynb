@@ -1,13 +1,17 @@
 CentOS-based IPython Notebook
 ===============================
 **centos-ipynb** is a CentOS-based docker image that hosts an IPython Notebook
-instance.
+instance. This *base* image forms the base of an IPython install, which can be
+built on to provide more functionality & bundled modules, such as for NLP.
 
 The instance comes with the following Python modules pre-installed:
 
 - [matplotlib](http://matplotlib.org)
 - [scikit-learn](http://scikit-learn.org)
 - [Pandas](http://pandas.pydata.org/)
+
+Only included with the `-nlp` image (due to its additional data size):
+
 - [Pattern](http://www.clips.ua.ac.be/pattern)
 - [NLTK](http://www.nltk.org)
 
