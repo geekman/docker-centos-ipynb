@@ -15,6 +15,7 @@ Only included with the `-nlp` image (due to its additional data size):
 
 - [Pattern](http://www.clips.ua.ac.be/pattern)
 - [NLTK](http://www.nltk.org)
+- [gensim](http://radimrehurek.com/gensim/)
 
 Your notebooks can be persisted by mounting the `/notebooks` volume:
 

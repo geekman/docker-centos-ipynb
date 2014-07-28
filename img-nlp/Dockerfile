@@ -11,3 +11,6 @@ RUN find /usr/lib/nltk_data -iname *.zip -exec rm {} \;
 
 RUN pip install pattern
 
+RUN pip install --upgrade setuptools
+RUN pip install gensim
+
